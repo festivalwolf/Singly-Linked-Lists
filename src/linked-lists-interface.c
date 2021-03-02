@@ -6,15 +6,15 @@
  */
 #include "linked-lists-interface.h"
 
-struct linked_list_t {
+struct llist_t {
 	int data;
-	linked_list_t *next;
+	llist_t *next;
 };
 
 typedef struct {
 	int size;
-	linked_list_t *head;
-	linked_list_t *tail;
+	llist_t *head;
+	llist_t *tail;
 }list_control_t;
 
 
@@ -31,7 +31,7 @@ void init_list()
 void add_head_node(int head_data)
 {
 	// Allocate memory for start/first node
-	linked_list_t *ll_ptr = (linked_list_t *)malloc(sizeof(linked_list_t));
+	llist_t *ll_ptr = (llist_t *)malloc(sizeof(llist_t));
 
 	// Init values
 	ll_ptr->data = head_data;
@@ -60,7 +60,7 @@ void insert_node_next(int data_to_be_inserted)
     }
     else
     {
-		linked_list_t *ll_ptr = (linked_list_t *)malloc(sizeof(linked_list_t));
+    	llist_t *ll_ptr = (llist_t *)malloc(sizeof(llist_t));
 
 		list_control.size++;
 		ll_ptr->data = data_to_be_inserted;
@@ -75,8 +75,8 @@ void insert_node_next(int data_to_be_inserted)
 void insert_node_random(int data_to_be_inserted, int pos)
 {
 	int pos_tmp = 0;
-	linked_list_t *ll_temp2;
-	linked_list_t *ll_temp1 = list_control.head;
+	llist_t *ll_temp2;
+	llist_t *ll_temp1 = list_control.head;
 
 	if(list_control.head == NULL)
 	{
@@ -94,7 +94,7 @@ void insert_node_random(int data_to_be_inserted, int pos)
 	}
 	else
 	{
-		linked_list_t *ll_ptr = (linked_list_t *)malloc(sizeof(linked_list_t));
+		llist_t *ll_ptr = (llist_t *)malloc(sizeof(llist_t));
 
 		ll_ptr->data = data_to_be_inserted;
 
@@ -131,8 +131,8 @@ void insert_node_random(int data_to_be_inserted, int pos)
 }
 void remove_last_node()
 {
-	linked_list_t *ll_remove = list_control.head;
-	linked_list_t *ll_remove_aux = list_control.head;
+	llist_t *ll_remove = list_control.head;
+	llist_t *ll_remove_aux = list_control.head;
 
 	if(list_control.head == NULL)
 	{
@@ -169,9 +169,9 @@ void remove_last_node()
 void remove_node_random(int data)
 {
 	int list_counter = 0;
-	linked_list_t *ll_remove = list_control.head;
-	linked_list_t *ll_remove_aux2 = list_control.head;
-	linked_list_t *ll_remove_aux1;
+	llist_t *ll_remove = list_control.head;
+	llist_t *ll_remove_aux2 = list_control.head;
+	llist_t *ll_remove_aux1;
 
 
 	if(list_control.head == NULL)
@@ -211,10 +211,10 @@ void remove_node_random(int data)
 
 }
 
-linked_list_t *fetch_node(int data)
+llist_t *fetch_node(int data)
 {
 	int list_counter = 0;
-	linked_list_t *ll_fetch = list_control.head;
+	llist_t *ll_fetch = list_control.head;
 
 	if(list_control.head == NULL)
 	{
@@ -241,7 +241,7 @@ linked_list_t *fetch_node(int data)
 #if ENABLE_PRINT
 void print_list()
 {
-	linked_list_t *ll_print;
+	list_t *ll_print;
 	int node_number_counter = 0;
 
 	for(ll_print = list_control.head; ll_print != NULL; ll_print = ll_print->next)

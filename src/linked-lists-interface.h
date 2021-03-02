@@ -15,7 +15,7 @@
 #define ENABLE_PRINT		0
 #define MAX_LL_SIZE 		10
 
-typedef struct linked_list_t linked_list_t;
+typedef struct llist_t llist_t;
 
 
 // Linked List Functions
@@ -25,10 +25,9 @@ void insert_node_next(int data_to_be_inserted);
 void insert_node_random(int data_to_be_inserted, int pos);
 void remove_last_node();
 void remove_node_random(int data);
-
 void delete_list();
 
-linked_list_t *fetch_node(int data);
+llist_t *fetch_node(int data);
 int max_list_size();
 int current_list_size();
 
