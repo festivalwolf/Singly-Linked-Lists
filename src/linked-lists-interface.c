@@ -6,6 +6,17 @@
  */
 #include "linked-lists-interface.h"
 
+struct linked_list_t {
+	int data;
+	linked_list_t *next;
+};
+
+typedef struct {
+	int size;
+	linked_list_t *head;
+	linked_list_t *tail;
+}list_control_t;
+
 
 static list_control_t list_control;
 
@@ -35,12 +46,16 @@ void insert_node_next(int data_to_be_inserted)
 {
 	if(list_control.head == NULL)
 	{
+#if ENABLE_PRINT
 		printf("\nHead node not added !! call add_head_node()");
+#endif
 		return;
 	}
     if(list_control.size >= MAX_LL_SIZE)
     {
+#if ENABLE_PRINT
     	printf("\nList limit reached !! Cannot add more nodes !");
+#endif
     	return;
     }
     else
@@ -51,7 +66,9 @@ void insert_node_next(int data_to_be_inserted)
 		ll_ptr->data = data_to_be_inserted;
 		ll_ptr->next = NULL;
 		list_control.tail = ll_ptr;
+#if ENABLE_PRINT
 		printf("\nNode added to list successfully!");
+#endif
     }
 }
 
@@ -63,12 +80,16 @@ void insert_node_random(int data_to_be_inserted, int pos)
 
 	if(list_control.head == NULL)
 	{
+#if ENABLE_PRINT
 		printf("\nHead node not added !! call add_head_node()");
+#endif
 		return;
 	}
 	if(list_control.size >= MAX_LL_SIZE)
 	{
+#if ENABLE_PRINT
 		printf("\nList limit reached !! Cannot add more nodes !");
+#endif
 		return;
 	}
 	else
@@ -101,7 +122,9 @@ void insert_node_random(int data_to_be_inserted, int pos)
 
 		list_control.size++;
 		list_control.tail = ll_ptr;
+#if ENABLE_PRINT
 		printf("\nNode added to list successfully!");
+#endif
 
 	}
 
@@ -113,12 +136,16 @@ void remove_last_node()
 
 	if(list_control.head == NULL)
 	{
+#if ENABLE_PRINT
 		printf("\nHead node not added !! call add_head_node()");
+#endif
 		return;
 	}
 	if(list_control.size == 0)
 	{
+#if ENABLE_PRINT
 		printf("\nList empty !!");
+#endif
 		return;
 	}
 	else
@@ -149,7 +176,9 @@ void remove_node_random(int data)
 
 	if(list_control.head == NULL)
 	{
+#if ENABLE_PRINT
 		printf("\nHead node not added !! call add_head_node()");
+#endif
 		return;
 	}
 	else
@@ -189,7 +218,9 @@ linked_list_t *fetch_node(int data)
 
 	if(list_control.head == NULL)
 	{
+#if ENABLE_PRINT
 		printf("\nHead node not added !! call add_head_node()");
+#endif
 		return NULL;
 	}
 	else
@@ -207,6 +238,7 @@ linked_list_t *fetch_node(int data)
 	return ll_fetch;
 }
 
+#if ENABLE_PRINT
 void print_list()
 {
 	linked_list_t *ll_print;
@@ -218,6 +250,8 @@ void print_list()
 		printf("\nNode %d value : %d", node_number_counter, ll_print->data);
 	}
 }
+#endif
+
 void delete_list()
 {
 	int list_counter = 0;
