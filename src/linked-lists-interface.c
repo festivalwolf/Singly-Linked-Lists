@@ -20,7 +20,7 @@ typedef struct {
 
 static llist_ctrl_t llist_ctrl;
 
-void init_list()
+void llist_init()
 {
 	llist_ctrl.size = 0;
 	llist_ctrl.head = NULL;
@@ -28,7 +28,7 @@ void init_list()
 }
 
 
-void add_head_node(int head_data)
+void llist_add_head(int head_data)
 {
 	// Allocate memory for start/first node
 	llist_t *ll_ptr = (llist_t *)malloc(sizeof(llist_t));
@@ -42,7 +42,7 @@ void add_head_node(int head_data)
 }
 
 
-void insert_node_next(int data_to_be_inserted)
+void llist_insert_node_next(int data_to_be_inserted)
 {
 	if(llist_ctrl.head == NULL)
 	{
@@ -72,7 +72,7 @@ void insert_node_next(int data_to_be_inserted)
     }
 }
 
-void insert_node_random(int data_to_be_inserted, int pos)
+void llist_insert_node_rand(int data_to_be_inserted, int pos)
 {
 	int pos_tmp = 0;
 	llist_t *ll_temp2;
@@ -129,7 +129,7 @@ void insert_node_random(int data_to_be_inserted, int pos)
 	}
 
 }
-void remove_last_node()
+void llist_remove_node_next()
 {
 	llist_t *ll_remove = llist_ctrl.head;
 	llist_t *ll_remove_aux = llist_ctrl.head;
@@ -166,7 +166,7 @@ void remove_last_node()
 
 }
 
-void remove_node_random(int data)
+void llist_remove_node_random(int data)
 {
 	int list_counter = 0;
 	llist_t *ll_remove = llist_ctrl.head;
@@ -211,7 +211,7 @@ void remove_node_random(int data)
 
 }
 
-llist_t *fetch_node(int data)
+llist_t *llist_fetch_node(int data)
 {
 	int list_counter = 0;
 	llist_t *ll_fetch = llist_ctrl.head;
@@ -252,22 +252,22 @@ void print_list()
 }
 #endif
 
-void delete_list()
+void llist_delete()
 {
 	int list_counter = 0;
 
 	while(list_counter++ != MAX_LL_SIZE)
 	{
-		remove_last_node();
+		llist_remove_node_next();
 	}
 }
 
-int max_list_size()
+int llist_max_size()
 {
  return MAX_LL_SIZE;
 }
 
-int current_list_size()
+int llist_current_size()
 {
   return MAX_LL_SIZE - llist_ctrl.size;
 }
