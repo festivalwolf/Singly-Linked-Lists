@@ -12,38 +12,40 @@ struct llist_t {
 };
 
 typedef struct {
-	int size;
+	int curr_size;
 	llist_t *head;
 	llist_t *tail;
 }llist_ctrl_t;
 
-
 static llist_ctrl_t llist_ctrl;
 
+// Function definitions
 void llist_init()
 {
-	llist_ctrl.size = 0;
+	llist_ctrl.curr_size = 0;
 	llist_ctrl.head = NULL;
 	llist_ctrl.tail = NULL;
 }
 
 
-void llist_add_head(int head_data)
+void llist_add_head(int data)
 {
 	// Allocate memory for start/first node
 	llist_t *ll_ptr = (llist_t *)malloc(sizeof(llist_t));
 
-	// Init values
-	ll_ptr->data = head_data;
+	ll_ptr->data = data;
 	ll_ptr->next = NULL;
-	llist_ctrl.size++;
+	llist_ctrl.curr_size++;
 	llist_ctrl.head = ll_ptr;
 	llist_ctrl.tail = ll_ptr;
 }
 
 
-void llist_insert_node_next(int data_to_be_inserted)
+void llist_insert_node_next(int data)
 {
+	int llist_counter = 0;
+	llist_t *llist_insert = llist_ctrl.head;
+
 	if(llist_ctrl.head == NULL)
 	{
 #if ENABLE_PRINT
@@ -51,7 +53,7 @@ void llist_insert_node_next(int data_to_be_inserted)
 #endif
 		return;
 	}
-    if(llist_ctrl.size >= MAX_LL_SIZE)
+    if(llist_ctrl.curr_size >= MAX_LL_SIZE)
     {
 #if ENABLE_PRINT
     	printf("\nList limit reached !! Cannot add more nodes !");
@@ -62,9 +64,19 @@ void llist_insert_node_next(int data_to_be_inserted)
     {
     	llist_t *ll_ptr = (llist_t *)malloc(sizeof(llist_t));
 
-		llist_ctrl.size++;
-		ll_ptr->data = data_to_be_inserted;
-		ll_ptr->next = NULL;
+    	while(llist_insert->next != NULL && llist_counter++ >= MAX_LL_SIZE)
+    	{
+    		llist_insert = llist_insert->next;
+    		if(llist_insert->next == NULL)
+    		{
+    			break;
+    		}
+    	}
+
+    	llist_insert->next = ll_ptr;
+    	llist_insert->next->data = data;
+    	llist_insert->next->next = NULL;
+		llist_ctrl.curr_size++;
 		llist_ctrl.tail = ll_ptr;
 #if ENABLE_PRINT
 		printf("\nNode added to list successfully!");
@@ -85,7 +97,7 @@ void llist_insert_node_rand(int data_to_be_inserted, int pos)
 #endif
 		return;
 	}
-	if(llist_ctrl.size >= MAX_LL_SIZE)
+	if(llist_ctrl.curr_size >= MAX_LL_SIZE)
 	{
 #if ENABLE_PRINT
 		printf("\nList limit reached !! Cannot add more nodes !");
@@ -120,8 +132,7 @@ void llist_insert_node_rand(int data_to_be_inserted, int pos)
 
 		}
 
-		llist_ctrl.size++;
-		llist_ctrl.tail = ll_ptr;
+		llist_ctrl.curr_size++;
 #if ENABLE_PRINT
 		printf("\nNode added to list successfully!");
 #endif
@@ -141,7 +152,7 @@ void llist_remove_node_next()
 #endif
 		return;
 	}
-	if(llist_ctrl.size == 0)
+	if(llist_ctrl.curr_size == 0)
 	{
 #if ENABLE_PRINT
 		printf("\nList empty !!");
@@ -160,7 +171,7 @@ void llist_remove_node_next()
 			ll_remove_aux = ll_remove_aux->next;
 		}
 		ll_remove_aux->next = NULL;
-	    llist_ctrl.size--;
+	    llist_ctrl.curr_size--;
 		free(ll_remove);
 	}
 
@@ -187,7 +198,7 @@ void llist_remove_node_random(int data)
 		if(ll_remove->data == data)
 		{
 			llist_ctrl.head = ll_remove->next;
-			llist_ctrl.size--;
+			llist_ctrl.curr_size--;
 			free(ll_remove);
 		}
 		else
@@ -203,7 +214,7 @@ void llist_remove_node_random(int data)
 				ll_remove_aux2 = ll_remove_aux2->next;
 			}
 			ll_remove_aux2->next = ll_remove_aux1;
-			llist_ctrl.size--;
+			llist_ctrl.curr_size--;
 			free(ll_remove);
 		}
 
@@ -269,5 +280,5 @@ int llist_max_size()
 
 int llist_current_size()
 {
-  return MAX_LL_SIZE - llist_ctrl.size;
+  return MAX_LL_SIZE - llist_ctrl.curr_size;
 }
