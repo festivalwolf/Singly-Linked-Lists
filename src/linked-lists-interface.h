@@ -20,9 +20,9 @@ typedef struct llist_t llist_t;
 
 // Linked List Functions
 void llist_init();
-void llist_add_head(int head_data);
-void llist_insert_node_next(int data_to_be_inserted);
-void llist_insert_node_rand(int data_to_be_inserted, int pos);
+void llist_add_head(int data);
+void llist_insert_node_next(int data);
+void llist_insert_node_rand(int data, int pos);
 void llist_remove_node_next();
 void llist_remove_node_random(int data);
 void llist_delete();
